@@ -1,11 +1,20 @@
+class RenderableElement {
+  constructor(tag) {
+    this.el = document.createElement(tag);
+  }
+}
+
 class List {
-  constructor() {
+  constructor(elWrapper) {
+    this.elWrapper = elWrapper;
     this._items = [];
+    this.el = document.createElement('ul');
+    this.render();
   }
 
   addItem(item) {
     this._items = [...this._items, item];
-    this.render();
+    this.el.append(item.el);
   }
 
   deleteItem(index) {
@@ -20,21 +29,7 @@ class List {
     this.render();
   }
 
-  renderItems() {
-    return `
-        <ul>
-            ${this._items
-              .map(
-                (item) => `
-                <li class="${item.state ? 'crossed' : ''}">${item.content}</li>
-            `
-              )
-              .join('')}
-        </ul>
-      `;
-  }
-
   render() {
-    document.body.innerHTML = this.renderItems();
+    this.elWrapper.append(this.el);
   }
 }
