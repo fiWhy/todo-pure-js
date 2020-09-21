@@ -17,6 +17,12 @@ class List {
     this.el.append(item.el);
   }
 
+  createCross() {
+    const cross = document.createElement('span');
+    cross.innerText = 'X';
+    return cross;
+  }
+
   deleteItem(index) {
     const el = [...this._items];
     el.splice(index, 1);
